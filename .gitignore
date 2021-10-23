@@ -1,0 +1,5 @@
+/authentic-client/node_modules
+/authentic-client/src/config.js
+/dapp-api/node_modules
+/dapp-api/config.env
+/dapp-api/req.http
