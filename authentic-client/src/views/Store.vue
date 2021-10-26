@@ -59,6 +59,7 @@
                   {{ item.description }}
                 </p>
                 <p class="mb-3 text-base leading-relaxed text-blueGray-500">Price: {{ item.price }}</p>
+                <a :href="item.url" class="text-blue-500">view post</a>
                 <!-- <button
                   @click.prevent="buyNFT(item)"
                   class="w-full px-16 py-2 my-2 text-base font-medium text-white transition duration-500 ease-in-out transform border-black rounded-md bg-black focus:shadow-outline focus:outline-none focus:ring-2 ring-offset-current ring-offset-2 hover:bg-blueGray-900 "
@@ -82,6 +83,7 @@
                 {{ item.description }}
               </p>
               <p class="mb-3 text-base leading-relaxed text-blueGray-500">Price: {{ item.price }}</p>
+              <a :href="item.url" class="text-blue-500">view post</a>
               <!-- <button
                   @click.prevent="buyNFT(item)"
                   class="w-full px-16 py-2 my-2 text-base font-medium text-white transition duration-500 ease-in-out transform border-black rounded-md bg-black focus:shadow-outline focus:outline-none focus:ring-2 ring-offset-current ring-offset-2 hover:bg-blueGray-900 "
@@ -134,8 +136,7 @@ export default {
       const items = await Promise.all(
         data.map(async (i) => {
           let tokenUri = await tokenContract.uri(i.tokenId)
-          tokenUri.replace('{id}', i.tokenId)
-          console.log(tokenUri)
+          tokenUri = tokenUri.replace('{id}', i.tokenId)
           const meta = await axios.get(tokenUri)
           console.log(meta.data)
           let price = ethers.utils.formatUnits(i.price.toString())
@@ -148,7 +149,7 @@ export default {
             owner: i.owner,
             sold: i.sold,
             hash: meta.data.hash,
-            date: new Date(meta.data.date).toUTCString(),
+            date: new Date(meta.data.createdAt).toUTCString(),
             url: meta.data.url,
           }
           this.items.push(item)
@@ -189,6 +190,7 @@ export default {
         data.map(async (i) => {
           let tokenUri = await tokenContract.uri(i.tokenId)
           tokenUri = tokenUri.replace('{id}', i.tokenId)
+          console.log(i.tokenId)
           console.log(tokenUri)
           const meta = await axios.get(tokenUri)
           let price = ethers.utils.formatUnits(i.price.toString(), 'ether')

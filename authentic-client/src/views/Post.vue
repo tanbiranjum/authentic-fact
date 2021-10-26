@@ -52,7 +52,7 @@
     </div>
     <div class="mx-12 bg-blue-500 text-white p-5" v-if="hasNft">
       Content link: {{ this.meta.url }} <br />
-      Creation date: {{ new Date(this.meta.date) }} <br />
+      Creation date: {{ new Date(this.meta.createdAt) }} <br />
       NFT ID: {{ this.nft.nftId }} <br />
     </div>
     <form
